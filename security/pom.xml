@@ -69,13 +69,13 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.2.0</version>
+            <version>3.3.0</version>
         </dependency>
         <!-- 代码自动生成，该功能有bug，官网例子都跑不起来 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.2.0</version>
+            <version>3.3.0</version>
         </dependency>
         <!-- dataSource -->
         <dependency>
