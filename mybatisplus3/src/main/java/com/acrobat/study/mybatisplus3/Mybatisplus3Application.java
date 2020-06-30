@@ -1,13 +1,13 @@
-package com.acrobat.study;
+package com.acrobat.study.mybatisplus3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StudyApplication {
+public class Mybatisplus3Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(StudyApplication.class, args);
+        SpringApplication.run(Mybatisplus3Application.class, args);
     }
 
 }

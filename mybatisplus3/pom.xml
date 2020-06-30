@@ -8,11 +8,11 @@
         <version>2.3.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.acrobat</groupId>
-    <artifactId>study</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>study</name>
-    <description>springboot整合mybatisplus3实践</description>
+    <groupId>com.acrobat.study</groupId>
+    <artifactId>mybatisplus3</artifactId>
+    <version>1.0.0</version>
+    <name>mybatisplus3</name>
+    <description>springboot整合mybatisplus3</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -35,8 +35,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
