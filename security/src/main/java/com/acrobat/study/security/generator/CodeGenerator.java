@@ -49,8 +49,8 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("haocheng");
+        gc.setOutputDir(projectPath + "/security" + "/src/main/java");
+        gc.setAuthor("acrobat");
         gc.setOpen(false);
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         auto.setGlobalConfig(gc);
@@ -66,8 +66,8 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.haocheng.study.springboot.mybatisplus");
+        pc.setParent("com.acrobat.study.security");
+        pc.setModuleName(scanner("子包名"));
         auto.setPackageInfo(pc);
 
         // 自定义配置

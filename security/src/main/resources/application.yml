@@ -6,6 +6,10 @@ server:
 spring:
     application:
         name: security
+    security:
+        user:
+            name: admin
+            password: 123456
 
     datasource:
         druid:
@@ -17,32 +21,32 @@ spring:
             initialSize: 5
             minIdle: 5
             maxActive: 20
-            maxWait: 60000                                # »ñÈ¡Á¬½ÓµÄ³¬Ê±µÈ´ýÊ±¼ä
-            timeBetweenEvictionRunsMillis: 60000          # ¼ì²éÒª¹Ø±ÕµÄ¿ÕÏÐÁ¬½Ó
-            min-evictableIdleTimeMillis: 30000            # Á¬½Ó¿ÕÏÐ¶à¾Ãºó¹Ø±Õ
-            validationQuery: SELECT 1                     # ¼ì²éÊÇ·ñ¿ÉÓÃ
+            maxWait: 60000                                # ï¿½ï¿½È¡ï¿½ï¿½ï¿½ÓµÄ³ï¿½Ê±ï¿½È´ï¿½Ê±ï¿½ï¿½
+            timeBetweenEvictionRunsMillis: 60000          # ï¿½ï¿½ï¿½Òªï¿½Ø±ÕµÄ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            min-evictableIdleTimeMillis: 30000            # ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½Ð¶ï¿½Ãºï¿½Ø±ï¿½
+            validationQuery: SELECT 1                     # ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
             testWhileIdle: true
             testOnBorrow: false
             testOnReturn: false
             poolPreparedStatements: true
 
-        # ³õÊ¼»¯SQL
+        # ï¿½ï¿½Ê¼ï¿½ï¿½SQL
         schema: classpath:sql/schema.sql
         data: classpath:sql/data.sql
     h2:
         console:
-            enabled: true                                     # ¿ªÆô¿ØÖÆÌ¨
-            path: /h2                                         # ¿ØÖÆÌ¨Â·¾¶
+            enabled: true                                     # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨
+            path: /h2                                         # ï¿½ï¿½ï¿½ï¿½Ì¨Â·ï¿½ï¿½
             settings:
-                web-allow-others: true                        # ÔÊÐíÔ¶³Ì·ÃÎÊ¿ØÖÆÌ¨
+                web-allow-others: true                        # ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ì·ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½Ì¨
 
 
-# springÕûºÏmybatisÔÚ·ÇÊÂÎñ»·¾³ÏÂ£¬Ã¿´Îµ÷ÓÃmapper½Ó¿Ú¶¼»á²úÉúÐÂµÄsqlSession£¬Òò´Ë²»»áÓÃµ½Ò»¼¶»º´æ
-# ÔÚÊÂÎñ»·¾³ÏÂ¹²ÏíÍ¬Ò»¸ösqlSession£¬ÒòÎªÊÂÎñ²»ÄÜ¿çsession
+# springï¿½ï¿½ï¿½ï¿½mybatisï¿½Ú·ï¿½ï¿½ï¿½ï¿½ñ»·¾ï¿½ï¿½Â£ï¿½Ã¿ï¿½Îµï¿½ï¿½ï¿½mapperï¿½Ó¿Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½sqlSessionï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+# ï¿½ï¿½ï¿½ï¿½ï¿½ñ»·¾ï¿½ï¿½Â¹ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½sqlSessionï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ü¿ï¿½session
 mybatis-plus:
     configuration:
-        # ²Î¿¼£ºhttps://blog.csdn.net/heroqiang/article/details/85339834
-        cache-enabled: false                                  # ½ûÓÃ¶þ¼¶»º´æ
-        local-cache-scope: statement                          # ËäÈ»mybatis²»ÄÜ½ûÓÃÒ»¼¶»º´æ£¬µ«¿ÉÒÔÉèÖÃscopeÎªstatement£¨Ä¬ÈÏÎªsession£©£¬´ïµ½Êµ¼Ê½ûÓÃÒ»¼¶»º´æµÄÄ¿µÄ
+        # ï¿½Î¿ï¿½ï¿½ï¿½https://blog.csdn.net/heroqiang/article/details/85339834
+        cache-enabled: false                                  # ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        local-cache-scope: statement                          # ï¿½ï¿½È»mybatisï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½scopeÎªstatementï¿½ï¿½Ä¬ï¿½ï¿½Îªsessionï¿½ï¿½ï¿½ï¿½ï¿½ïµ½Êµï¿½Ê½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
     mapper-locations: classpath:mapper/**Mapper.xml
 
