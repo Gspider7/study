@@ -24,6 +24,7 @@ import java.io.IOException;
 
 /**
  * spring security配置
+ * spring security基于filterChain实现认证和鉴权
  */
 @Configuration
 @EnableWebSecurity
@@ -36,6 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
+    /**
+     * AuthenticationManager是spring security的核心验证器
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 这里密码没有使用编码，如果需要使用，数据库中存储的密码必须使用同样的方式进行编码才能匹配
@@ -57,9 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 解决h2控制台空白问题，参考：https://www.jianshu.com/p/925d5aece6dc
         http.csrf().disable();                                  // 关闭CSRF攻击防御
-        http.headers().frameOptions().sameOrigin();
+        http.headers().frameOptions().sameOrigin();             // 解决h2控制台空白问题，参考：https://www.jianshu.com/p/925d5aece6dc
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()     // 跨域预检请求
