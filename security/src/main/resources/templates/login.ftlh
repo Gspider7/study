@@ -8,7 +8,8 @@
 </head>
 <body>
 <h1>登录</h1>
-<form method="post" action="${ctx}/user/login">
+<#-- 注意这个/login请求是由spring security处理的，后台并没写这个接口 -->
+<form method="post" action="${ctx}/login">
     <div>
         用户名：<input type="text" name="username">
     </div>
