@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * mybatis plus的好处在于减少xml sql定义
  *
- * 参考官网：https://mp.baomidou.com/
+ * 参考官网：https://mp.baomidou.com/ 中的注解相关文档
  */
 @Data
 @TableName("sys_user")      // 相当于在xml中自动生成了一个baseResultMap，根据下划线转驼峰的方式进行字段匹配

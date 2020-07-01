@@ -40,6 +40,14 @@ spring:
             settings:
                 web-allow-others: true                        # 允许远程访问
 
+    mvc:
+        static-path-pattern: /static/**                       # config for access to static resources
+    freemarker:
+        content-type: text/html
+        charset: utf-8
+        settings:
+            classic_compatible: true                          # avoid null expression error
+            datetime_format: yyyy-MM-dd HH:mm:ss
 
 mybatis-plus:
     configuration:

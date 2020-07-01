@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<#assign ctx=springMacroRequestContext.contextPath />
+
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
 </head>
 <body>
 <h1>登录</h1>
-<form method="post" action="/login">
+<form method="post" action="${ctx}/user/login">
     <div>
         用户名：<input type="text" name="username">
     </div>
