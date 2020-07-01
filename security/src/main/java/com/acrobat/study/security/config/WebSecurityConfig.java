@@ -1,6 +1,7 @@
 package com.acrobat.study.security.config;
 
 import com.acrobat.study.security.service.security.CustomUserDetailsService;
+import com.acrobat.study.security.utils.JacksonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * spring security配置
@@ -68,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 引入内置登出接口
         http.logout().clearAuthentication(true)
-                .logoutSuccessUrl(contextPath + "/user/login");
+                .logoutSuccessUrl("/static/test.html");
     }
 
     @Override
@@ -78,4 +87,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // ----------------------------------------------------------------------
+
+    /**
+     * 可通过http.formLogin().successHandler()自定义登录成功的处理
+     * 可以进行转发，重定向等
+     * 同理可以配置failureHandler
+     */
+    @Component
+    public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandler {
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                            Authentication authentication) throws IOException, ServletException {
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(JacksonUtil.writeValueAsString(authentication));
+        }
+    }
 }
