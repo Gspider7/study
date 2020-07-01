@@ -16,12 +16,7 @@ import java.util.Scanner;
 
 /**
  * MP自动生成代码 —— V3.3.0
- *
- * @Attention: 需手动添加generator依赖
- *
- *
- * @Author: haocheng
- * @Date: 2019-12-16 11:24
+ * 经测试，生成的都是空的文件，还不如使用mybatis的生成器
  */
 public class CodeGenerator {
 
@@ -35,7 +30,7 @@ public class CodeGenerator {
         System.out.println(help.toString());
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
+            if (StringUtils.isNotBlank(ipt)) {
                 return ipt;
             }
         }
