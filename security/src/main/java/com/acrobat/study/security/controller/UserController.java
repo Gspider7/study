@@ -37,16 +37,20 @@ public class UserController {
         return "home";
     }
 
+    /**
+     * hasRole('ROLE_ADMIN')和hasRole('ADMIN')效果一样，都是检查用户是否有名为ROLE_ADMIN的权限
+     */
     @RequestMapping("/admin")
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String printAdmin() {
         return "如果你看见这句话，说明你有ROLE_ADMIN角色";
     }
 
     @RequestMapping("/normal")
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_NORMAL')")
+    @PreAuthorize("hasRole('NORMAL')")
     public String printUser() {
         return "如果你看见这句话，说明你有ROLE_NORMAL角色";
     }
