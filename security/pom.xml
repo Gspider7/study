@@ -85,6 +85,13 @@
             <version>3.3.0</version>
         </dependency>
 
+        <!-- sql性能监控、格式化日志 -->
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>3.8.7</version>
+        </dependency>
+
         <!-- freemarker -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

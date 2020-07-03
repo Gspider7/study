@@ -13,9 +13,10 @@ spring:
 
     datasource:
         druid:
-            driverClassName: org.h2.Driver
-#            url: jdbc:h2:${user.dir}/h2/security
-            url: jdbc:h2:mem:security
+#            driverClassName: org.h2.Driver
+#            url: jdbc:h2:mem:security
+            driverClassName: com.p6spy.engine.spy.P6SpyDriver
+            url: jdbc:p6spy:h2:mem:security
             username: root
             password: ayufan
             initialSize: 5

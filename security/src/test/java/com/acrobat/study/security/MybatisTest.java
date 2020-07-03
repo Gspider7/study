@@ -2,6 +2,7 @@ package com.acrobat.study.security;
 
 import com.acrobat.study.security.entity.SysUser;
 import com.acrobat.study.security.mapper.SysUserMapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,8 +28,11 @@ public class MybatisTest {
 
         SysUser user2 = sysUserMapper.selectByUsername("test");
 
+        // QueryWrapper用来组装where条件
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", "test");
+        SysUser user3 = sysUserMapper.selectOne(wrapper);
+
         System.out.println();
     }
-
-
 }
