@@ -54,4 +54,5 @@ public class UserController {
     public String printUser() {
         return "如果你看见这句话，说明你有ROLE_NORMAL角色";
     }
+
 }

@@ -66,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()     // 跨域预检请求放行
 //                .antMatchers("/static/**").permitAll()        // 静态资源允许匿名访问
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/test/**").permitAll()
                 .antMatchers("/h2/**").hasRole("ADMIN")         // 注意这里配置角色需要去掉ROLE_前缀
                 .anyRequest().authenticated();                  // 其他所有请求需要身份认证
 
