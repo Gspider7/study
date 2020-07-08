@@ -2,8 +2,8 @@ package com.acrobat.study.security.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -17,7 +17,7 @@ public class TestVO implements Serializable {
 
     @NotNull(message = "id不能为空")
     private Long id;
-    @NotBlank(message = "名称不能为空")
+    @Length(min = 2, max = 10, message = "name 长度必须在 {min} - {max} 之间")
     private String name;
 
     private TestSubVO subVO;

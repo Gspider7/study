@@ -3,10 +3,7 @@ package com.acrobat.study.security.controller;
 import com.acrobat.study.security.utils.JacksonUtil;
 import com.acrobat.study.security.vo.TestVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
