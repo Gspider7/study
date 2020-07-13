@@ -64,7 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()     // 跨域预检请求放行
-//                .antMatchers("/static/**").permitAll()        // 静态资源允许匿名访问
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/test/**").permitAll()
                 .antMatchers("/h2/**").hasRole("ADMIN")         // 注意这里配置角色需要去掉ROLE_前缀
@@ -72,13 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 登录配置
         http.formLogin() // 表单登录
-                // http.httpBasic() // HTTP Basic
                 .loginPage("/user/login")                       // 跳转登录页的地址
                 .loginProcessingUrl("/login")                   // 登录表单请求的地址，不需要写这个地址的接口，由spring security的过滤器处理
                 .successForwardUrl("/user/home");               // 登录成功跳转地址
-
-        // 默认登出请求地址为/logout，会执行如下处理：使session失效，清空SecurityContext，重定向到登录页
-//        http.logout()...
 
         // 权限验证失败处理
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);

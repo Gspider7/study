@@ -6,6 +6,7 @@ import com.acrobat.study.security.entity.SysUserRole;
 import com.acrobat.study.security.mapper.SysRoleMapper;
 import com.acrobat.study.security.mapper.SysUserMapper;
 import com.acrobat.study.security.mapper.SysUserRoleMapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,15 +37,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         // 从数据库中取出用户信息
-        SysUser user = sysUserMapper.selectByUsername(username);
+        SysUser user = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username));
 
         // 判断用户是否存在
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
 
         // 获取用户权限，权限包括角色和权限两部分，在security中角色和权限是平级的，没有关联关系
-        List<SysUserRole> userRoles = sysUserRoleMapper.selectByUserId(user.getId());
+        List<SysUserRole> userRoles = sysUserRoleMapper.selectList(new QueryWrapper<SysUserRole>()
+                .eq("user_id", user.getId()));
         for (SysUserRole userRole : userRoles) {
             SysRole role = sysRoleMapper.selectById(userRole.getRoleId());
             authorities.add(new SimpleGrantedAuthority(role.getName()));

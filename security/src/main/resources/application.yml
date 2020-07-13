@@ -11,6 +11,7 @@ spring:
             name: admin
             password: 123456
 
+
     datasource:
         druid:
 #            driverClassName: org.h2.Driver
@@ -49,6 +50,7 @@ spring:
         settings:
             classic_compatible: true                          # avoid null expression error
             datetime_format: yyyy-MM-dd HH:mm:ss
+
 
 mybatis-plus:
     configuration:

@@ -1,0 +1,59 @@
+server:
+    port: 8102
+    servlet:
+        context-path: /security-oauth2
+
+spring:
+    application:
+        name: security-oauth2
+    security:
+        user:
+            name: admin
+            password: 123456
+
+    datasource:
+        druid:
+#            driverClassName: org.h2.Driver
+#            url: jdbc:h2:mem:security
+            driverClassName: com.p6spy.engine.spy.P6SpyDriver
+            url: jdbc:p6spy:h2:mem:security
+            username: root
+            password: ayufan
+            initialSize: 5
+            minIdle: 5
+            maxActive: 20
+            maxWait: 60000
+            timeBetweenEvictionRunsMillis: 60000
+            min-evictableIdleTimeMillis: 30000
+            validationQuery: SELECT 1
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+
+        # 初始化SQL
+        schema: classpath:sql/schema.sql
+        data: classpath:sql/data.sql
+    h2:
+        console:
+            enabled: true
+            path: /h2
+            settings:
+                web-allow-others: true                        # 允许远程访问
+
+    mvc:
+        static-path-pattern: /static/**                       # config for access to static resources
+    freemarker:
+        content-type: text/html
+        charset: utf-8
+        settings:
+            classic_compatible: true                          # avoid null expression error
+            datetime_format: yyyy-MM-dd HH:mm:ss
+
+mybatis-plus:
+    configuration:
+        # https://blog.csdn.net/heroqiang/article/details/85339834
+        cache-enabled: false                                  # 禁用二级缓存
+        local-cache-scope: statement                          # 设置一级缓存范围（默认为session），实质上禁用一级缓存
+    mapper-locations: classpath:mapper/**Mapper.xml
+

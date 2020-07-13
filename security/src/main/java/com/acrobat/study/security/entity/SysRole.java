@@ -1,8 +1,6 @@
 package com.acrobat.study.security.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +9,7 @@ import java.io.Serializable;
 @TableName("sys_role")
 public class SysRole implements Serializable {
 
-    @TableField(insertStrategy = FieldStrategy.NOT_NULL)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     private String name;
