@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)          // 激活@PreAuthorize和@PostAuthorize注解
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
