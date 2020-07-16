@@ -14,8 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
  *      https://projects.spring.io/spring-security-oauth/docs/oauth2.html，开发者文档
  *      https://www.springframework.org/schema/security/spring-security-oauth2.xsd，命名空间文件，可以查阅一些配置项的说明
  *
- * @author xutao
- * @date 2020-07-09 11:28
+ * Oauth2的核心认证过滤器是OAuth2AuthenticationProcessingFilter，默认的认证管理器是OAuth2AuthenticationManager
  */
 @Configuration
 @EnableAuthorizationServer      // 开启oauth认证服务器支持
