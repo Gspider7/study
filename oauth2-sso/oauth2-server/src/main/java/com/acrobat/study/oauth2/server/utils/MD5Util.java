@@ -25,4 +25,11 @@ public class MD5Util {
         }
         return sb.toString().toUpperCase();
     }
+
+    public static void main(String[] args) {
+        System.out.println("A"+2);
+        System.out.println('A'+2);
+        System.out.println((char)('A'+2));
+    }
+
 }

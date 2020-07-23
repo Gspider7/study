@@ -1,13 +1,13 @@
-package com.acrobat.study.mybatisplus3;
+package com.acrobat.study.lettuce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Mybatisplus3Application {
+public class LettuceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Mybatisplus3Application.class, args);
+        SpringApplication.run(LettuceApplication.class, args);
     }
 
 }
