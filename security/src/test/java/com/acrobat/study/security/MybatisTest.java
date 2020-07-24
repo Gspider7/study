@@ -6,6 +6,7 @@ import com.acrobat.study.security.mapper.SysUserMapper;
 import com.acrobat.study.security.mapper.SysUserRoleMapper;
 import com.acrobat.study.security.service.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,6 +47,9 @@ public class MybatisTest {
 
         List<SysUserRole> userRoleList = sysUserRoleMapper.selectList(new QueryWrapper<SysUserRole>().eq("user_id", 1));
 
+        // 测试分页插件
+        Page<SysUser> page = new Page<>(1, 20);
+        sysUserService.page(page, new QueryWrapper<>());
 
 //        sysUserService.saveOrUpdateBatch(..);
 
