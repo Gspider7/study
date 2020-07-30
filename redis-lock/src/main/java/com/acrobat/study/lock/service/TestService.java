@@ -1,6 +1,7 @@
 package com.acrobat.study.lock.service;
 
 import com.acrobat.study.lock.annotation.RedisLock;
+import com.acrobat.study.lock.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
@@ -19,7 +20,7 @@ public class TestService {
     @Autowired
     private ValueOperations<String, Object> valueOperations;
 
-    @RedisLock(key = "testAdd", retryTimes = -1)
+    @RedisLock(key = "testAdd")
     public void testAdd() {
         log.info("start processing: {}", Thread.currentThread().getId());
 
@@ -33,6 +34,13 @@ public class TestService {
         }
 
         log.info("end processing: {}", Thread.currentThread().getId());
+    }
+
+    @RedisLock(key = "user", suffixParamKeys = {"user.id", "user.name"})
+//    @RedisLock(key = "user", suffixParamKeys = "user.id")
+    public void testSaveUser(User user) {
+
+        System.out.println();
     }
 
     public static void main(String[] args) {

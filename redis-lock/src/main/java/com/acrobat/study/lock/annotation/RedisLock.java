@@ -11,12 +11,17 @@ public @interface RedisLock {
     /**
      * 锁前缀
      */
-    String preKey() default "lock:";
+    String preKey() default "lock";
 
     /**
      * 锁名称
      */
     String key() default "";
+
+    /**
+     * 使用目标方法中的参数值或参数内部的属性值，作为锁的后缀
+     */
+    String[] suffixParamKeys() default {};
 
     /**
      * 重试次数

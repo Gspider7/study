@@ -1,5 +1,6 @@
 package com.acrobat.study.lock.lettuce;
 
+import com.acrobat.study.lock.entity.User;
 import com.acrobat.study.lock.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
@@ -73,6 +74,12 @@ class LettuceLockTests {
         log.info("第三次加锁: {}", result);
 
         System.out.println();
+    }
+
+    @Test
+    public void testLockSuffix() {
+
+        testService.testSaveUser(new User(1L, "abc"));
     }
 
     @AfterAll
