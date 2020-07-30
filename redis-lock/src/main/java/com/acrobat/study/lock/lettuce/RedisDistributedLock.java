@@ -28,8 +28,9 @@ public class RedisDistributedLock {
 
     public boolean lock(String key, String value, long expire, TimeUnit timeUnit, int retryTimes, long retryInterval) {
         boolean result = setIfAbsent(key, value, expire, timeUnit);
-        // 如果获取锁失败，按照传入的重试次数进行重试
-        while ((!result) && retryTimes > 0) {
+
+        // 重试
+        while ((!result) && Math.abs(retryTimes) > 0) {
             try {
                 log.debug("lock failed, retrying..." + retryTimes);
                 Thread.sleep(retryInterval);
@@ -37,7 +38,7 @@ public class RedisDistributedLock {
                 return false;
             }
             result = setIfAbsent(key, value, expire, timeUnit);
-            retryTimes --;
+            if (retryTimes > 0) retryTimes --;
         }
         return result;
     }
