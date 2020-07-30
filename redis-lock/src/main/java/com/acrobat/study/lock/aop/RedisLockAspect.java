@@ -62,7 +62,7 @@ public class RedisLockAspect {
      * 由3部分组成：前缀 + 关键字 + 后缀
      * 后缀来自于方法的参数，或者参数内部的属性
      */
-    private String getLockKey(JoinPoint joinPoint, RedisLock redisLock) throws NoSuchFieldException {
+    private String getLockKey(JoinPoint joinPoint, RedisLock redisLock) {
         List<String> keyPartList = new ArrayList<>();           // 组成key的各个部分
         String preKey = redisLock.preKey();
         if (!StringUtils.isEmpty(preKey)) keyPartList.add(preKey);
