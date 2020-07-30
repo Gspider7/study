@@ -1,10 +1,12 @@
 package com.acrobat.study.lock.service;
 
-import com.acrobat.study.lock.annotation.RedisSync;
+import com.acrobat.study.lock.annotation.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author xutao
@@ -17,7 +19,7 @@ public class TestService {
     @Autowired
     private ValueOperations<String, Object> valueOperations;
 
-    @RedisSync(key = "testAdd", retryTimes = -1)
+    @RedisLock(key = "testAdd", retryTimes = -1)
     public void testAdd() {
         log.info("start processing: {}", Thread.currentThread().getId());
 
@@ -31,5 +33,9 @@ public class TestService {
         }
 
         log.info("end processing: {}", Thread.currentThread().getId());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(TimeUnit.MINUTES.toMillis(3));
     }
 }

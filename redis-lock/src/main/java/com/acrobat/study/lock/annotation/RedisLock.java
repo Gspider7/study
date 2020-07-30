@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RedisSync {
+public @interface RedisLock {
 
     /**
      * 锁前缀
@@ -21,17 +21,17 @@ public @interface RedisSync {
     /**
      * 重试次数
      */
-    int retryTimes() default 3;
+    int retryTimes() default -1;
 
     /**
      * 重试间隔（毫秒）
      */
-    long retryInterval() default 1000;
+    long retryInterval() default 200;
 
     /**
      * 失效时间
      */
-    long expire() default 60000L;
+    long expire() default 30000L;
 
     /**
      * 时间单位

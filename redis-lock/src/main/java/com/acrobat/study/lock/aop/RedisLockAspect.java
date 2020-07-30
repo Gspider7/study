@@ -1,6 +1,6 @@
 package com.acrobat.study.lock.aop;
 
-import com.acrobat.study.lock.annotation.RedisSync;
+import com.acrobat.study.lock.annotation.RedisLock;
 import com.acrobat.study.lock.lettuce.RedisDistributedLock;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -26,7 +26,7 @@ public class RedisLockAspect {
     @Autowired
     private RedisDistributedLock redisDistributedLock;
 
-    @Pointcut("@annotation(com.acrobat.study.lock.annotation.RedisSync)")
+    @Pointcut("@annotation(com.acrobat.study.lock.annotation.RedisLock)")
     public void redisSync() {
 
     }
@@ -40,12 +40,13 @@ public class RedisLockAspect {
 //        String[] parameterNames = signature.getParameterNames();
 //        Object[] args = joinPoint.getArgs();
 
-        RedisSync redisSync = method.getDeclaredAnnotation(RedisSync.class);
-        String lockKey = redisSync.key();
-        Long expire = redisSync.expire();
-        TimeUnit timeUnit = redisSync.timeUnit();
-        int retryTimes = redisSync.retryTimes();
-        long retryInterval = redisSync.retryInterval();
+        RedisLock redisLock = method.getDeclaredAnnotation(RedisLock.class);
+        String preKey = redisLock.preKey();
+        String lockKey = preKey == null ? redisLock.key() : preKey + redisLock.key();
+        Long expire = redisLock.expire();
+        TimeUnit timeUnit = redisLock.timeUnit();
+        int retryTimes = redisLock.retryTimes();
+        long retryInterval = redisLock.retryInterval();
 
         String lockValue= UUID.randomUUID().toString();     // 这个值可以根据业务定制 必须唯一
         Boolean lockSuccess = redisDistributedLock.lock(lockKey, lockValue, expire, timeUnit, retryTimes, retryInterval);
