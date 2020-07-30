@@ -64,13 +64,13 @@ class LettuceLockTests {
     @Test
     public void testReentrant() {
         boolean result = redisDistributedLock.lock("testKey", "abc", -1, TimeUnit.MILLISECONDS, -1, 200);
-        log.debug("第一次加锁: {}", result);
+        log.info("第一次加锁: {}", result);
 
         result = redisDistributedLock.lock("testKey", "abc", -1, TimeUnit.MILLISECONDS, 3, 200);
-        log.debug("第二次加锁: {}", result);
+        log.info("第二次加锁: {}", result);
 
         result = redisDistributedLock.lock("testKey", "aaa", -1, TimeUnit.MILLISECONDS, 3, 200);
-        log.debug("第三次加锁: {}", result);
+        log.info("第三次加锁: {}", result);
 
         System.out.println();
     }
