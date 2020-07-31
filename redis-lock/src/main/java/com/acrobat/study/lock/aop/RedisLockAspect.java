@@ -88,7 +88,7 @@ public class RedisLockAspect {
             }
         }
 
-        return StringUtils.combine(keyPartList, ":");
+        return StringUtils.combine(keyPartList, redisLock.combinator());
     }
 
     /**
