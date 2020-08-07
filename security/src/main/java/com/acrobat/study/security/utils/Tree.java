@@ -1,9 +1,12 @@
 package com.acrobat.study.security.utils;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
  * @date 2020-07-31 15:17
  */
 @Data
+@Slf4j
 public class Tree<T extends TreeObject> implements Serializable {
 
     /* 节点ID */
@@ -109,17 +113,7 @@ public class Tree<T extends TreeObject> implements Serializable {
     public static <T extends TreeObject> void filterByText(List<Tree<T>> treeList,
                                                            String textLike) {
         // 将树平铺
-        Map<Object, Tree<T>> flatMap = new HashMap<>();
-
-        List<Tree<T>> currentLevel = treeList;
-        while (CollectionUtils.isNotEmpty(currentLevel)) {
-            List<Tree<T>> nextLevel = new ArrayList<>();
-            currentLevel.forEach(tree -> {
-                nextLevel.addAll(tree.getChildren());
-                flatMap.put(tree.getId(), tree);
-            });
-            currentLevel = nextLevel;
-        }
+        Map<Object, Tree<T>> flatMap = flatToMap(treeList);
 
         // 不断过滤，剔除不满足条件的节点
         while (true) {
@@ -143,6 +137,79 @@ public class Tree<T extends TreeObject> implements Serializable {
 
         treeList.clear();
         treeList.addAll(flatMap.values().stream().filter(item -> item.getParentId() == null).collect(Collectors.toList()));
+    }
+
+    /**
+     * 根据节点实体的属性值过滤，保留父子关系结构：即使父节点不满足过滤条件也要保留
+     * @param treeList          树结构
+     * @param fieldName         属性名
+     * @param fieldValue        属性值
+     */
+    public static <T extends TreeObject> void filterByFieldValue(List<Tree<T>> treeList, String fieldName,
+                                                                 Object fieldValue) {
+        if (CollectionUtils.isEmpty(treeList)
+                || StringUtils.isBlank(fieldName)
+                || fieldValue == null) return;
+
+        Class objectClass = treeList.get(0).getObject().getClass();
+        Field field;
+        try {
+            field = objectClass.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            log.error("can't filter {} tree by field {}", objectClass.getName(), fieldName, e);
+            return;
+        }
+
+        // 将树平铺
+        Map<Object, Tree<T>> flatMap = flatToMap(treeList);
+
+        // 不断过滤，剔除不满足条件的节点
+        while (true) {
+            List<Tree<T>> deleteList = new ArrayList<>();
+            flatMap.forEach((id, tree) -> {
+                Object value;
+                try {
+                    value = field.get(tree.getObject());
+                } catch (IllegalAccessException e) {
+                    return;
+                }
+
+                // 剔除条件：不匹配，且没有子节点
+                if (tree.getChildren().size() == 0 && !fieldValue.equals(value)) {
+                    deleteList.add(tree);
+
+                    Tree<T> parent = flatMap.get(tree.getParentId());
+                    if (parent != null) {
+                        parent.getChildren().remove(tree);
+                    }
+                }
+            });
+            deleteList.forEach(tree -> flatMap.remove(tree.getId()));
+
+            // 再没有可剔除的节点了
+            if (deleteList.size() == 0) break;
+        }
+
+        treeList.clear();
+        treeList.addAll(flatMap.values().stream().filter(item -> item.getParentId() == null).collect(Collectors.toList()));
+    }
+
+    /**
+     * 将树平铺成map
+     */
+    private static <T extends TreeObject> Map<Object, Tree<T>> flatToMap(List<Tree<T>> treeList) {
+        Map<Object, Tree<T>> flatMap = new HashMap<>();
+
+        List<Tree<T>> currentLevel = treeList;
+        while (CollectionUtils.isNotEmpty(currentLevel)) {
+            List<Tree<T>> nextLevel = new ArrayList<>();
+            currentLevel.forEach(tree -> {
+                nextLevel.addAll(tree.getChildren());
+                flatMap.put(tree.getId(), tree);
+            });
+            currentLevel = nextLevel;
+        }
+        return flatMap;
     }
 
     // -------------------------------------------------------------------------------------
