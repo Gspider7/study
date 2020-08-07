@@ -53,6 +53,31 @@ public class Tree<T extends TreeObject> implements Serializable {
      * 通用方法：构建树结构
      */
     public static <T extends TreeObject> List<Tree<T>> buildTree(List<T> list) {
+        Map<Object, Tree<T>> treeMap = buildTreeMap(list);
+
+        return treeMap.values().stream().filter(tree -> tree.getParentId() == null).collect(Collectors.toList());
+    }
+
+    /**
+     * 通用方法：通过父节点id获得子树列表
+     */
+    public static <T extends TreeObject> List<Tree<T>> buildSubTrees(List<T> list, Object parentId) {
+        Map<Object, Tree<T>> treeMap = buildTreeMap(list);
+
+        Tree<T> parent = treeMap.get(parentId);
+        return parent == null ? new ArrayList<>() : parent.getChildren();
+    }
+
+    /**
+     * 通用方法：通过id获得子树
+     */
+    public static <T extends TreeObject> Tree<T> buildSubTree(List<T> list, Object id) {
+        Map<Object, Tree<T>> treeMap = buildTreeMap(list);
+
+        return treeMap.get(id);
+    }
+
+    private static <T extends TreeObject> Map<Object, Tree<T>> buildTreeMap(List<T> list) {
         /* key：id */
         Map<Object, Tree<T>> treeMap = new HashMap<>();
         // 加入map
@@ -77,9 +102,7 @@ public class Tree<T extends TreeObject> implements Serializable {
                 }
             }
         });
-
-        // 返回
-        return treeMap.values().stream().filter(tree -> tree.getParentId() == null).collect(Collectors.toList());
+        return treeMap;
     }
 
     /**
