@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @date 2020-07-31 15:17
  */
 @Data
-public class ObjectTree<T extends TreeObject> implements Serializable {
+public class Tree<T extends TreeObject> implements Serializable {
 
     /* 节点ID */
     private Object id;
@@ -32,14 +32,14 @@ public class ObjectTree<T extends TreeObject> implements Serializable {
     /* 节点是否被选中 true false */
     private boolean checked = false;
     /* 节点的子节点 */
-    private List<ObjectTree<T>> children = new ArrayList<>();
+    private List<Tree<T>> children = new ArrayList<>();
 
     // -------------------------------------------------------------------------------------
 
-    public ObjectTree() {
+    public Tree() {
     }
 
-    public ObjectTree(T object) {
+    public Tree(T object) {
         this.object = object;
 
         this.id = object.getId();
@@ -52,15 +52,15 @@ public class ObjectTree<T extends TreeObject> implements Serializable {
     /**
      * 通用方法：构建树结构
      */
-    public static <T extends TreeObject> List<ObjectTree<T>> buildTree(List<T> list) {
+    public static <T extends TreeObject> List<Tree<T>> buildTree(List<T> list) {
         /* key：id */
-        Map<Object, ObjectTree<T>> treeMap = new HashMap<>();
+        Map<Object, Tree<T>> treeMap = new HashMap<>();
         // 加入map
         list.forEach(item -> {
             Object id = item.getId();
 
             if (!treeMap.containsKey(id)) {
-                ObjectTree<T> tree = new ObjectTree<>(item);
+                Tree<T> tree = new Tree<>(item);
                 treeMap.put(id, tree);
             }
         });
@@ -69,7 +69,7 @@ public class ObjectTree<T extends TreeObject> implements Serializable {
         treeMap.forEach((id, tree) -> {
             Object parentId = tree.getParentId();
             if (parentId != null) {
-                ObjectTree<T> parent = treeMap.get(parentId);
+                Tree<T> parent = treeMap.get(parentId);
                 if (parent != null) {
                     parent.addChild(tree);
                 } else {
@@ -87,14 +87,14 @@ public class ObjectTree<T extends TreeObject> implements Serializable {
      * @param treeList          树结构
      * @param textLike          匹配字符串
      */
-    public static <T extends TreeObject> void filterByText(List<ObjectTree<T>> treeList,
+    public static <T extends TreeObject> void filterByText(List<Tree<T>> treeList,
                                                            String textLike) {
         // 将树平铺
-        Map<Object, ObjectTree<T>> flatMap = new HashMap<>();
+        Map<Object, Tree<T>> flatMap = new HashMap<>();
 
-        List<ObjectTree<T>> currentLevel = treeList;
+        List<Tree<T>> currentLevel = treeList;
         while (CollectionUtils.isNotEmpty(currentLevel)) {
-            List<ObjectTree<T>> nextLevel = new ArrayList<>();
+            List<Tree<T>> nextLevel = new ArrayList<>();
             currentLevel.forEach(tree -> {
                 nextLevel.addAll(tree.getChildren());
                 flatMap.put(tree.getId(), tree);
@@ -104,13 +104,13 @@ public class ObjectTree<T extends TreeObject> implements Serializable {
 
         // 不断过滤，剔除不满足条件的节点
         while (true) {
-            List<ObjectTree<T>> deleteList = new ArrayList<>();
+            List<Tree<T>> deleteList = new ArrayList<>();
             flatMap.forEach((id, tree) -> {
                 // 剔除条件：不匹配，且没有子节点
                 if (tree.getChildren().size() == 0 && !tree.getText().contains(textLike)) {
                     deleteList.add(tree);
 
-                    ObjectTree<T> parent = flatMap.get(tree.getParentId());
+                    Tree<T> parent = flatMap.get(tree.getParentId());
                     if (parent != null) {
                         parent.getChildren().remove(tree);
                     }
@@ -128,7 +128,7 @@ public class ObjectTree<T extends TreeObject> implements Serializable {
 
     // -------------------------------------------------------------------------------------
 
-    private void addChild(ObjectTree<T> child) {
+    private void addChild(Tree<T> child) {
         children.add(child);
     }
 }
