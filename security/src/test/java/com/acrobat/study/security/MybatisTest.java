@@ -43,6 +43,7 @@ public class MybatisTest {
         // QueryWrapper用来组装where条件
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
         wrapper.eq("username", "test").select("username", "password");
+//        wrapper.eq("username", null).select("username", "password");
         SysUser user3 = sysUserMapper.selectOne(wrapper);
 
         List<SysUserRole> userRoleList = sysUserRoleMapper.selectList(new QueryWrapper<SysUserRole>().eq("user_id", 1));

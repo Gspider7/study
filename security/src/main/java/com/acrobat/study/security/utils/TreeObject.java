@@ -17,5 +17,5 @@ public interface TreeObject extends Serializable {
     public Object getParentNodeId();
 
     @JsonIgnore
-    public String getText();
+    public String getNodeText();
 }

@@ -72,26 +72,28 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- 引入SpringCloud依赖包 -->
+        <!--
+        &lt;!&ndash; 引入SpringCloud依赖包 &ndash;&gt;
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter</artifactId>
         </dependency>
-        <!-- 引入服务注册客户端 -->
+        &lt;!&ndash; 引入服务注册客户端 &ndash;&gt;
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <!-- 引入feign -->
+        &lt;!&ndash; 引入feign &ndash;&gt;
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <!-- hystrix -->
+        &lt;!&ndash; hystrix &ndash;&gt;
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
+        -->
 
         <!-- 用于测试mybatis plus代码自动生成 -->
         <dependency>

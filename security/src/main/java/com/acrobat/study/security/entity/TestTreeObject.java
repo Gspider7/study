@@ -40,7 +40,7 @@ public class TestTreeObject implements TreeObject {
     }
 
     @Override
-    public String getText() {
+    public String getNodeText() {
         return content;
     }
 

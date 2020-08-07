@@ -44,7 +44,7 @@ public class Tree<T extends TreeObject> implements Serializable {
 
         this.id = object.getNodeId();
         this.parentId = object.getParentNodeId();
-        this.text = object.getText();
+        this.text = object.getNodeText();
     }
 
     // -------------------------------------------------------------------------------------
@@ -82,12 +82,8 @@ public class Tree<T extends TreeObject> implements Serializable {
         Map<Object, Tree<T>> treeMap = new HashMap<>();
         // 加入map
         list.forEach(item -> {
-            Object id = item.getNodeId();
-
-            if (!treeMap.containsKey(id)) {
-                Tree<T> tree = new Tree<>(item);
-                treeMap.put(id, tree);
-            }
+            Tree<T> tree = new Tree<>(item);
+            treeMap.put(tree.getId(), tree);
         });
 
         // 构建父子关系
