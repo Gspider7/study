@@ -42,8 +42,8 @@ public class Tree<T extends TreeObject> implements Serializable {
     public Tree(T object) {
         this.object = object;
 
-        this.id = object.getId();
-        this.parentId = object.getParentId();
+        this.id = object.getNodeId();
+        this.parentId = object.getParentNodeId();
         this.text = object.getText();
     }
 
@@ -82,7 +82,7 @@ public class Tree<T extends TreeObject> implements Serializable {
         Map<Object, Tree<T>> treeMap = new HashMap<>();
         // 加入map
         list.forEach(item -> {
-            Object id = item.getId();
+            Object id = item.getNodeId();
 
             if (!treeMap.containsKey(id)) {
                 Tree<T> tree = new Tree<>(item);

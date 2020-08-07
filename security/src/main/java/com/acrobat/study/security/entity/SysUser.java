@@ -2,7 +2,6 @@ package com.acrobat.study.security.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -12,7 +11,6 @@ import java.io.Serializable;
  * 参考官网：https://mp.baomidou.com/ 中的注解相关文档
  */
 @Data
-@NoArgsConstructor
 @TableName("sys_user")      // 相当于在xml中自动生成了一个baseResultMap，根据下划线转驼峰的方式进行字段匹配
 public class SysUser implements Serializable {
 

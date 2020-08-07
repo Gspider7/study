@@ -1,5 +1,7 @@
 package com.acrobat.study.security.utils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 /**
@@ -8,9 +10,12 @@ import java.io.Serializable;
  */
 public interface TreeObject extends Serializable {
 
-    public Object getId();
+    @JsonIgnore
+    public Object getNodeId();
 
-    public Object getParentId();
+    @JsonIgnore
+    public Object getParentNodeId();
 
+    @JsonIgnore
     public String getText();
 }
