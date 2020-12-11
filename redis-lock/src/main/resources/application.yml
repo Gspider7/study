@@ -4,21 +4,21 @@ spring:
     host: localhost
     port: 6779
 #    password: 123456
-    # 在1.x.x的版本时默认使用的jedis客户端，Jedis是直连模式
+    # jedis is the default in springboot 1.x.x
     jedis:
       pool:
         max-active: 50
-        max-wait: 2000ms            # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 2000ms            # max wait time try getting a connection, bellow zero means wait forever
         max-idle: 20
         min-idle: 5
-    # Lettuce的连接是基于Netty的
+    # Lettuce is based on netty
     lettuce:
       pool:
         max-active: 600
         max-wait: 2000ms
         max-idle: 300
         min-idle: 0
-    timeout: 30000ms                        # 连接超时时间（毫秒）
+    timeout: 30000ms                # time out try connecting redis server
 
 
 logging:
